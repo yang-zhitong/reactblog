@@ -1,0 +1,66 @@
+const Router = require('koa-router');
+
+const router = new Router();
+
+const controller = require('../controller/article.js');
+
+/*
+获取所有文章或者单一文章
+
+创建文章
+  $.post('/articles', {
+    title: 'test1',
+    category: '前端',
+    description: 'front',
+    filename: '111',
+  });
+
+修改
+$.ajax({
+  url: '/articles/1',
+  type: 'PUT',
+  data: {
+    title: 'test1-change',
+    description: 'frsdfontaaa',
+  },
+});
+
+删除
+$.ajax({
+  url: '/articles/4',
+  type: 'DELETE',
+});
+
+$.get('/articles/categories/前端');
+
+$.get('articles?tag=1');
+$.get('articles?tag=1');
+$.get('articles?tag=1');
+*/
+router.prefix('/articles');
+
+router
+  .get('/:id([0-9]+)?', controller.find.bind(controller))
+  .post('/', controller.addOne.bind(controller))
+  .put('/:id', controller.editOne.bind(controller))
+  .delete('/:id', controller.deleteOne.bind(controller));
+
+router.get('/categories', controller.category.bind(controller));
+
+/*
+  创建标签, 加入关系表
+$.post('/articles/1/tag', {
+  tag: 'a',
+});
+
+$.ajax({
+  url: '/articles/1/tag/1',
+  type: 'DELETE',
+});
+
+*/
+router
+  .post('/:id/tag', controller.addTag.bind(controller))
+  .delete('/:id/tag/:tag_id', controller.removeTag.bind(controller));
+
+module.exports = router;

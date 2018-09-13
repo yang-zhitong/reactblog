@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+// 发布环境变量
+process.env.NODE_ENV = 'development';
+
+const { hostname, port } = require('../app/config');
+
+const http = require('http');
+// const https = require('https');
+const app = require('../app/main');
+const socketMixin = require('../app/socket');
+
+
+const server = http.createServer(app.callback());
+// const server = http.createServer(app.callback());
+const io = require('socket.io')(server);
+
+socketMixin(io);
+
+// 绑定端口
+server.listen(parseInt(port, 10), hostname);
+
+// 错误事件处理
+server.on('error', (err) => {
+  if (err.syscall !== 'listen') {
+    throw err;
+  }
+
+  // 插件错误类型提示
+  switch (err.code) {
+    case 'EACCES':
+      console.error(`端口 ${port} 需要 root 权限`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`端口 ${port} 已被使用`);
+      process.exit(1);
+      break;
+    default:
+      throw err;
+  }
+});
+
+// 监听事件处理
+server.on('listening', () => {
+  console.log(`Listening on http://localhost:${port}`);
+});

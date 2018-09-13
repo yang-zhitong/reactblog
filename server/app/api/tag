@@ -1,0 +1,67 @@
+const Router = require('koa-router');
+
+const router = new Router();
+
+router.prefix('/tags');
+/*
+增加标签
+$.post('/tags', {
+  tag: 'a',
+});
+*/
+router
+  .get('/', async (ctx) => {
+    const res = await ctx.mysql('tag').findAll();
+    ctx.body = res;
+  })
+  .post('/', async (ctx) => {
+    const { tag } = ctx.request.body;
+    const res = await ctx.mysql('tag').add(tag);
+    ctx.body = res;
+  });
+
+/*
+修改标签名字
+$.ajax({
+  url: '/tags/1',
+  type: 'PUT',
+  data: {
+    name: 'achange',
+  },
+});
+
+删除
+$.ajax({
+  url: '/tags/1',
+  type: 'DELETE',
+});
+*/
+router
+  .get('/:id', async (ctx) => {
+    const { id } = ctx.params;
+    const res = await ctx.mysql('tag').findById(id);
+    ctx.body = res;
+  })
+  .put('/:id', async (ctx) => {
+    const { id } = ctx.params;
+    const { body } = ctx.request;
+    const res = await ctx.mysql('tag').update(body, { where: { id } });
+    ctx.body = res;
+  })
+  .delete('/:id', async (ctx) => {
+    const { id } = ctx.params;
+    const res = await ctx.mysql('tag').destroy({ where: { id } });
+    ctx.body = res;
+  });
+
+/*
+获取这个标签下所有的文章
+  $.get('/tags/a/articles');
+*/
+router.get('/:id/articles', async (ctx) => {
+  const { id } = ctx.params;
+  const [res] = await ctx.sequelize.query(`SELECT post.* FROM tagging as map JOIN post on post.id = map.p_id and map.t_id = ${id}`);
+  ctx.body = res;
+});
+
+module.exports = router;

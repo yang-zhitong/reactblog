@@ -1,0 +1,52 @@
+/* header {
+  height: 50px;
+  background: #000;
+  font-size: 18px;
+  line-height: 50px;
+  display: flex;
+  font-weight: 600;
+}
+
+header a {
+  color: #fff;
+  margin: 0 20px;
+}
+a {
+  text-decoration: none;  
+}
+a:hover{
+  text-decoration: none;
+}
+
+.content {
+  position: relative;
+} */
+
+.aside {
+  display: block;
+  background-color: #F9F9F9;
+  border-right: 1px solid #DEDEDE;
+  padding: 50px;    
+}
+
+.cards {
+  border-right: 1px solid #DEDEDE;
+  justify-content: start;
+}
+
+.cards .box {
+  cursor: pointer;
+}
+
+.cards .box:hover {
+  background-color: #F5F5F5;
+}
+.info-form,
+.cards.column {
+  padding: 1.75rem;
+}
+
+.editor,
+.CodeMirror {
+  height: 100%;
+}
