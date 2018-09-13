@@ -11,7 +11,9 @@ const error = require('./error');
 module.exports = function middle(app) {
   app.use(error());
 
+
   if (process.env.NODE_ENV === 'development') {
+    console.log('debug');
     app.use(logger()); //  log当前请求
   }
 

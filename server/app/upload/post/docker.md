@@ -5,6 +5,22 @@
     + 进入已有的容器, 同步代码,npm i, 再commit变成新的镜像
 2. 代码不放入镜像，使用volume挂载放入容器。这样镜像只需要维护程序运行的环境，不同的项目运行不同的容器挂载不同的代码。
 
+`docker run -p 9000:9000 -v /c/Users/FEy/Desktop/my/blog:/data -it node:rel /bin/bash`
+
+进入container内的命令行后
+
+进入代码目录, npm run dev 等等即可
+
+### 继续开发
+
+id替换成自己容器的id
+
+```sh
+docker container start f99afae99335
+
+docker container exec -it f99afae99335 /bin/bash
+```
+
 
 ## 运行一个封装好的容器
 

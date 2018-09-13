@@ -1,24 +1,14 @@
 version: '3'
 services:
   web:
-    image: node
+    image: keymetrics/pm2:latest-stretch
     restart: always
-    hostname: blog1
     container_name: blog
     environment:
-      PORT: 8000
-      NODE_ENV: ${NODE_ENV}
-      ALINODE_CONFIG: ${ALINODE_CONFIG}
+      PORT: 9000
     ports:
       - 9000:9000
-      - 3000:3000
     volumes:
-      - '$PWD:/app'
-      - '/data/logs/nodejs:/logs'
-      - '/data/logs/pm2:/root/.pm2/logs'
-      - '/etc/localtime:/etc/localtime:ro'
-    extra_hosts:
-      - 'im.juxiangyou.com:192.168.1.27'
-      - 'interface.juxiangyou.com:192.168.1.27'
-      - 'j.juxiangyou.com:192.168.1.40'
-      - 'logs.juxiangyou.com:192.168.1.65'
+      - '.:/data'
+    working_dir: /data/server
+    command: pm2-runtime start ecosystem.config.js

@@ -5,7 +5,8 @@ function errorHandleMiddle() {
     } catch (err) {
       ctx.status = err.status || 500;
       ctx.body = { error_msg: err.message };
-      ctx.app.emit('error', err, ctx);
+      // ctx.app.emit('error', err, ctx);
+      console.error(err, ctx);
     }
   };
 }
