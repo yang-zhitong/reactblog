@@ -5,7 +5,7 @@ import createHistory from 'history/createBrowserHistory';
 // 带上 cookie
 // axios.defaults.withCredentials = true;
 const instance = iaxios.create({
-  baseURL: 'http://localhost:9000/',
+  baseURL: process.env.NODE_ENV === 'production' ? `http://${window.location.hostname}` : 'http://localhost:9000',
   timeout: 1000,
   withCredentials: true, // 带上 cookie
 });
