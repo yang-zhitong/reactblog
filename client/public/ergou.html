@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <title>嘻嘻</title>
+  <link href="//lib.baomitu.com/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
+  <script src="//unpkg.com/popmotion@8.4.1/dist/popmotion.global.min.js"></script>
+  <style>
+    body {
+      text-align: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .noti-wrap {
+      width: 300px;
+      padding: 50px;
+      display: inline-block;
+      margin: 0 30px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h1 class="title is-1">二狗今天加班吗？</h1>
+  <div class="noti-wrap J_jia">
+    <div class="notification is-success">
+      加班
+    </div>
+  </div>
+  <div class="noti-wrap">
+    <div class="notification is-primary J_no">
+      不加班
+    </div>
+  </div>
+
+
+  <script>
+    window.onload = function () {
+      var easing = window.popmotion.easing,
+        tween = window.popmotion.tween;
+      styler = window.popmotion.styler;
+      var jia = document.querySelector('.J_jia');
+      var divStyler = styler(jia);
+
+      jia.addEventListener('mouseover', function (evt) {
+        var end = { x: window.innerWidth * Math.random(), y: window.innerHeight * Math.random() };
+        var x = end.x > evt.x ? end.x - evt.x : -(evt.x - end.x);
+        var y = end.y > evt.y ? end.y - evt.y : -(evt.y - end.y);
+        tween({
+          from: 0,
+          to: {
+            x: x,
+            y: y,
+            rotate: 360
+          },
+          duration: 1000,
+          ease: easing.backOut,
+        }).start(divStyler.set);
+      });
+
+      jia.addEventListener('click', function (evt) {
+        alert('呀呀呀， 点一下晚上亲一口');
+      });
+
+      document.querySelector('.J_no').addEventListener('click', function (evt) {
+        alert('么么么， 你说对了');
+      });
+
+    }
+
+  </script>
+</body>
+
+</html>

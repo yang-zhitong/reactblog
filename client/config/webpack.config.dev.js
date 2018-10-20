@@ -58,6 +58,10 @@ module.exports = {
       require.resolve('react-dev-utils/webpackHotDevClient'),
       paths.appAdminJs,
     ],
+    ergou: [
+      require.resolve('react-dev-utils/webpackHotDevClient'),
+      paths.appTestJs,
+    ]
   },
   output: {
     // Add /* filename */ comments to generated require()s in the output.

@@ -80,6 +80,7 @@ module.exports = function(proxy, allowedHost) {
       disableDotRule: true,
       rewrites: [
         { from: /^\/admin/, to: '/admin.html' },
+        { from: /^\/ergou/, to: '/ergou.html' },
       ]
     },
     public: allowedHost,
